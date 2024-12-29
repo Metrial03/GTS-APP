@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "deXaoBUp5vQ=",
+  "dgSpecHash": "ZXGUkk3c9AQ=",
   "success": true,
-  "projectFilePath": "C:\\Users\\heray\\Desktop\\erayy\\GTSAPP\\GTSAPP\\GTSAPP.csproj",
+  "projectFilePath": "C:\\Users\\heray\\source\\repos\\GTSAPP\\GTSAPP\\GTSAPP.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\heray\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\heray\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

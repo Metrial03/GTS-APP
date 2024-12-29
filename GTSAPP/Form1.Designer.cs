@@ -31,12 +31,12 @@ namespace GTSAPP
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
-            updateinst = new Button();
+            updateiu = new Button();
             updatep = new Button();
             panel3 = new Panel();
             panel2 = new Panel();
@@ -106,10 +106,22 @@ namespace GTSAPP
             deleteKeyw = new Button();
             cosupId = new TextBox();
             tabPage3 = new TabPage();
-            AuthorIdS = new TextBox();
-            thesisNoS = new TextBox();
             dataGridView3 = new DataGridView();
             panel1 = new Panel();
+            thesisNoS = new TextBox();
+            label24 = new Label();
+            instS = new TextBox();
+            type1 = new Label();
+            typeS = new ComboBox();
+            university1 = new Label();
+            title1 = new Label();
+            univS = new TextBox();
+            titleS = new TextBox();
+            keyword2 = new Label();
+            year1 = new Label();
+            keywordS = new TextBox();
+            AuthorIdS = new TextBox();
+            yearS = new TextBox();
             pictureBox1 = new PictureBox();
             label22 = new Label();
             thesisSearch = new Button();
@@ -149,7 +161,7 @@ namespace GTSAPP
             tabPage1.BackColor = Color.FloralWhite;
             tabPage1.BackgroundImageLayout = ImageLayout.Center;
             tabPage1.BorderStyle = BorderStyle.FixedSingle;
-            tabPage1.Controls.Add(updateinst);
+            tabPage1.Controls.Add(updateiu);
             tabPage1.Controls.Add(updatep);
             tabPage1.Controls.Add(panel3);
             tabPage1.Controls.Add(panel2);
@@ -183,19 +195,19 @@ namespace GTSAPP
             tabPage1.TabIndex = 0;
             tabPage1.Text = "General";
             // 
-            // updateinst
+            // updateiu
             // 
-            updateinst.BackColor = Color.FromArgb(64, 64, 64);
-            updateinst.FlatStyle = FlatStyle.Popup;
-            updateinst.Font = new Font("Arial Narrow", 9F, FontStyle.Bold);
-            updateinst.ForeColor = Color.White;
-            updateinst.Location = new Point(609, 422);
-            updateinst.Name = "updateinst";
-            updateinst.Size = new Size(66, 23);
-            updateinst.TabIndex = 23;
-            updateinst.Text = "UPDATE";
-            updateinst.UseVisualStyleBackColor = false;
-            updateinst.Click += updateinst_Click;
+            updateiu.BackColor = Color.FromArgb(64, 64, 64);
+            updateiu.FlatStyle = FlatStyle.Popup;
+            updateiu.Font = new Font("Arial Narrow", 9F, FontStyle.Bold);
+            updateiu.ForeColor = Color.White;
+            updateiu.Location = new Point(609, 422);
+            updateiu.Name = "updateiu";
+            updateiu.Size = new Size(66, 23);
+            updateiu.TabIndex = 23;
+            updateiu.Text = "UPDATE";
+            updateiu.UseVisualStyleBackColor = false;
+            updateiu.Click += updateiu_Click;
             // 
             // updatep
             // 
@@ -261,11 +273,11 @@ namespace GTSAPP
             // 
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = Color.MistyRose;
-            dataGridViewCellStyle1.ForeColor = Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = Color.RoyalBlue;
-            dataGridViewCellStyle1.SelectionForeColor = Color.White;
-            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.BackColor = Color.MistyRose;
+            dataGridViewCellStyle4.ForeColor = Color.Black;
+            dataGridViewCellStyle4.SelectionBackColor = Color.RoyalBlue;
+            dataGridViewCellStyle4.SelectionForeColor = Color.White;
+            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.BackgroundColor = Color.Azure;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -418,11 +430,11 @@ namespace GTSAPP
             // 
             dataGridView2.AllowUserToAddRows = false;
             dataGridView2.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle2.BackColor = Color.MistyRose;
-            dataGridViewCellStyle2.ForeColor = Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = Color.RoyalBlue;
-            dataGridViewCellStyle2.SelectionForeColor = Color.White;
-            dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.BackColor = Color.MistyRose;
+            dataGridViewCellStyle5.ForeColor = Color.Black;
+            dataGridViewCellStyle5.SelectionBackColor = Color.RoyalBlue;
+            dataGridViewCellStyle5.SelectionForeColor = Color.White;
+            dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView2.BackgroundColor = Color.Azure;
             dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -992,8 +1004,6 @@ namespace GTSAPP
             tabPage3.BackColor = Color.SlateGray;
             tabPage3.BackgroundImageLayout = ImageLayout.Center;
             tabPage3.BorderStyle = BorderStyle.FixedSingle;
-            tabPage3.Controls.Add(AuthorIdS);
-            tabPage3.Controls.Add(thesisNoS);
             tabPage3.Controls.Add(dataGridView3);
             tabPage3.Controls.Add(panel1);
             tabPage3.Location = new Point(4, 24);
@@ -1003,51 +1013,172 @@ namespace GTSAPP
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Thesis Search";
             // 
-            // AuthorIdS
-            // 
-            AuthorIdS.Location = new Point(265, 93);
-            AuthorIdS.Name = "AuthorIdS";
-            AuthorIdS.Size = new Size(157, 21);
-            AuthorIdS.TabIndex = 2;
-            // 
-            // thesisNoS
-            // 
-            thesisNoS.Location = new Point(265, 58);
-            thesisNoS.Name = "thesisNoS";
-            thesisNoS.Size = new Size(157, 21);
-            thesisNoS.TabIndex = 1;
-            // 
             // dataGridView3
             // 
             dataGridView3.AllowUserToAddRows = false;
             dataGridView3.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle3.BackColor = Color.MistyRose;
-            dataGridViewCellStyle3.ForeColor = Color.Black;
-            dataGridViewCellStyle3.SelectionBackColor = Color.RoyalBlue;
-            dataGridViewCellStyle3.SelectionForeColor = Color.White;
-            dataGridView3.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.BackColor = Color.MistyRose;
+            dataGridViewCellStyle6.ForeColor = Color.Black;
+            dataGridViewCellStyle6.SelectionBackColor = Color.RoyalBlue;
+            dataGridViewCellStyle6.SelectionForeColor = Color.White;
+            dataGridView3.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             dataGridView3.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView3.BackgroundColor = Color.Azure;
             dataGridView3.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView3.Location = new Point(8, 160);
+            dataGridView3.Location = new Point(8, 277);
             dataGridView3.Name = "dataGridView3";
             dataGridView3.ReadOnly = true;
             dataGridView3.RowHeadersVisible = false;
-            dataGridView3.Size = new Size(989, 504);
+            dataGridView3.Size = new Size(989, 387);
             dataGridView3.TabIndex = 0;
             // 
             // panel1
             // 
             panel1.BackColor = Color.FloralWhite;
             panel1.BorderStyle = BorderStyle.FixedSingle;
+            panel1.Controls.Add(thesisNoS);
+            panel1.Controls.Add(label24);
+            panel1.Controls.Add(instS);
+            panel1.Controls.Add(type1);
+            panel1.Controls.Add(typeS);
+            panel1.Controls.Add(university1);
+            panel1.Controls.Add(title1);
+            panel1.Controls.Add(univS);
+            panel1.Controls.Add(titleS);
+            panel1.Controls.Add(keyword2);
+            panel1.Controls.Add(year1);
+            panel1.Controls.Add(keywordS);
+            panel1.Controls.Add(AuthorIdS);
+            panel1.Controls.Add(yearS);
             panel1.Controls.Add(pictureBox1);
             panel1.Controls.Add(label22);
             panel1.Controls.Add(thesisSearch);
             panel1.Controls.Add(label23);
             panel1.Location = new Point(8, 30);
             panel1.Name = "panel1";
-            panel1.Size = new Size(555, 112);
+            panel1.Size = new Size(555, 241);
             panel1.TabIndex = 7;
+            // 
+            // thesisNoS
+            // 
+            thesisNoS.Location = new Point(256, 13);
+            thesisNoS.Name = "thesisNoS";
+            thesisNoS.Size = new Size(157, 21);
+            thesisNoS.TabIndex = 1;
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Font = new Font("Microsoft JhengHei UI", 14.25F, FontStyle.Bold);
+            label24.Location = new Point(135, 172);
+            label24.Name = "label24";
+            label24.Size = new Size(117, 24);
+            label24.TabIndex = 18;
+            label24.Text = "INSTITUTE :";
+            // 
+            // instS
+            // 
+            instS.Location = new Point(256, 175);
+            instS.Name = "instS";
+            instS.Size = new Size(157, 21);
+            instS.TabIndex = 17;
+            // 
+            // type1
+            // 
+            type1.AutoSize = true;
+            type1.Font = new Font("Microsoft JhengHei UI", 14.25F, FontStyle.Bold);
+            type1.Location = new Point(186, 201);
+            type1.Name = "type1";
+            type1.Size = new Size(66, 24);
+            type1.TabIndex = 16;
+            type1.Text = "TYPE :";
+            // 
+            // typeS
+            // 
+            typeS.DropDownStyle = ComboBoxStyle.DropDownList;
+            typeS.FormattingEnabled = true;
+            typeS.Items.AddRange(new object[] { "", "Master", "Doctorate", "Specialization in Medicine", "Proficiency in Art" });
+            typeS.Location = new Point(256, 202);
+            typeS.Name = "typeS";
+            typeS.Size = new Size(157, 23);
+            typeS.TabIndex = 15;
+            // 
+            // university1
+            // 
+            university1.AutoSize = true;
+            university1.Font = new Font("Microsoft JhengHei UI", 14.25F, FontStyle.Bold);
+            university1.Location = new Point(119, 145);
+            university1.Name = "university1";
+            university1.Size = new Size(133, 24);
+            university1.TabIndex = 14;
+            university1.Text = "UNIVERSITY :";
+            // 
+            // title1
+            // 
+            title1.AutoSize = true;
+            title1.BackColor = Color.Transparent;
+            title1.Font = new Font("Microsoft JhengHei UI", 14.25F, FontStyle.Bold);
+            title1.Location = new Point(183, 37);
+            title1.Name = "title1";
+            title1.Size = new Size(69, 24);
+            title1.TabIndex = 13;
+            title1.Text = "TITLE :";
+            // 
+            // univS
+            // 
+            univS.Location = new Point(256, 148);
+            univS.Name = "univS";
+            univS.Size = new Size(157, 21);
+            univS.TabIndex = 12;
+            // 
+            // titleS
+            // 
+            titleS.Location = new Point(256, 40);
+            titleS.Name = "titleS";
+            titleS.Size = new Size(157, 21);
+            titleS.TabIndex = 11;
+            // 
+            // keyword2
+            // 
+            keyword2.AutoSize = true;
+            keyword2.Font = new Font("Microsoft JhengHei UI", 14.25F, FontStyle.Bold);
+            keyword2.Location = new Point(133, 119);
+            keyword2.Name = "keyword2";
+            keyword2.Size = new Size(119, 24);
+            keyword2.TabIndex = 10;
+            keyword2.Text = "KEYWORD :";
+            // 
+            // year1
+            // 
+            year1.AutoSize = true;
+            year1.BackColor = Color.Transparent;
+            year1.Font = new Font("Microsoft JhengHei UI", 14.25F, FontStyle.Bold);
+            year1.Location = new Point(182, 92);
+            year1.Name = "year1";
+            year1.Size = new Size(70, 24);
+            year1.TabIndex = 9;
+            year1.Text = "YEAR :";
+            // 
+            // keywordS
+            // 
+            keywordS.Location = new Point(256, 121);
+            keywordS.Name = "keywordS";
+            keywordS.Size = new Size(157, 21);
+            keywordS.TabIndex = 8;
+            // 
+            // AuthorIdS
+            // 
+            AuthorIdS.Location = new Point(256, 67);
+            AuthorIdS.Name = "AuthorIdS";
+            AuthorIdS.Size = new Size(157, 21);
+            AuthorIdS.TabIndex = 2;
+            // 
+            // yearS
+            // 
+            yearS.Location = new Point(256, 94);
+            yearS.Name = "yearS";
+            yearS.Size = new Size(157, 21);
+            yearS.TabIndex = 7;
             // 
             // pictureBox1
             // 
@@ -1066,7 +1197,7 @@ namespace GTSAPP
             label22.BackColor = Color.Transparent;
             label22.Font = new Font("Microsoft JhengHei UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label22.ForeColor = Color.Black;
-            label22.Location = new Point(128, 27);
+            label22.Location = new Point(130, 10);
             label22.Name = "label22";
             label22.Size = new Size(122, 24);
             label22.TabIndex = 3;
@@ -1078,7 +1209,7 @@ namespace GTSAPP
             thesisSearch.FlatStyle = FlatStyle.Popup;
             thesisSearch.Font = new Font("Arial Narrow", 14F, FontStyle.Bold);
             thesisSearch.ForeColor = Color.White;
-            thesisSearch.Location = new Point(431, 27);
+            thesisSearch.Location = new Point(436, 167);
             thesisSearch.Name = "thesisSearch";
             thesisSearch.Size = new Size(103, 58);
             thesisSearch.TabIndex = 5;
@@ -1092,7 +1223,7 @@ namespace GTSAPP
             label23.BackColor = Color.Transparent;
             label23.Font = new Font("Microsoft JhengHei UI", 14.25F, FontStyle.Bold);
             label23.ForeColor = Color.Black;
-            label23.Location = new Point(121, 61);
+            label23.Location = new Point(123, 65);
             label23.Name = "label23";
             label23.Size = new Size(129, 24);
             label23.TabIndex = 4;
@@ -1125,7 +1256,6 @@ namespace GTSAPP
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
             tabPage3.ResumeLayout(false);
-            tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView3).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
@@ -1217,7 +1347,19 @@ namespace GTSAPP
         private Panel panel4;
         private CheckedListBox subjectL;
         private Button updatep;
-        private Button updateinst;
+        private Button updateiu;
         private Button updateThesis;
+        private Label year1;
+        private TextBox keywordS;
+        private TextBox yearS;
+        private Label keyword2;
+        private Label label24;
+        private TextBox instS;
+        private Label type1;
+        private ComboBox typeS;
+        private Label university1;
+        private Label title1;
+        private TextBox univS;
+        private TextBox titleS;
     }
 }

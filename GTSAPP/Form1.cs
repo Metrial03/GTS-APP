@@ -449,81 +449,171 @@ namespace GTSAPP
                 }
             }
         }
-        private void updateinst_Click(object sender, EventArgs e) //UPDATE INSTITUTE
+        private void updateiu_Click(object sender, EventArgs e) //UPDATE INSTITUTE AND UNIVERSITY
         {
             using (InputBoxForm inputBox = new InputBoxForm())
             {
                 if (inputBox.ShowDialog() == DialogResult.OK)
                 {
-                    string oldInstituteName = inputBox.OldInstituteName;
-                    string newInstituteName = inputBox.NewInstituteName;
-
-                    if (string.IsNullOrEmpty(oldInstituteName) || string.IsNullOrEmpty(newInstituteName))
+                    if (inputBox.UpdateType == "Institute")
                     {
-                        MessageBox.Show("Both old and new institute names must be provided.");
-                        return;
+                        string oldInstituteName = inputBox.OldInstituteName;
+                        string newInstituteName = inputBox.NewInstituteName;
+
+                        if (string.IsNullOrEmpty(oldInstituteName) || string.IsNullOrEmpty(newInstituteName))
+                        {
+                            MessageBox.Show("Both old and new institute names must be provided.");
+                            return;
+                        }
+
+                        using (SqlConnection con = new SqlConnection(conString))
+                        {
+                            con.Open();
+
+                            string checkInstituteQuery = "SELECT COUNT(*) FROM INSTITUTE WHERE INSTITUTE_NAME = @OldInstituteName";
+                            SqlCommand checkInstituteCmd = new SqlCommand(checkInstituteQuery, con);
+                            checkInstituteCmd.Parameters.AddWithValue("@OldInstituteName", oldInstituteName);
+                            int instituteCount = (int)checkInstituteCmd.ExecuteScalar();
+
+                            if (instituteCount == 0)
+                            {
+                                MessageBox.Show("The specified old institute name does not exist.");
+                                return;
+                            }
+
+                            string checkNewInstituteQuery = "SELECT COUNT(*) FROM INSTITUTE WHERE INSTITUTE_NAME = @NewInstituteName";
+                            SqlCommand checkNewInstituteCmd = new SqlCommand(checkNewInstituteQuery, con);
+                            checkNewInstituteCmd.Parameters.AddWithValue("@NewInstituteName", newInstituteName);
+                            int newInstituteCount = (int)checkNewInstituteCmd.ExecuteScalar();
+
+                            if (newInstituteCount > 0)
+                            {
+                                MessageBox.Show("The specified new institute name already exists.");
+                                return;
+                            }
+
+                            string dropConstraintsQuery = @"
+                        ALTER TABLE THESIS NOCHECK CONSTRAINT ALL;
+                        ALTER TABLE INSTITUTE NOCHECK CONSTRAINT ALL;";
+                            SqlCommand dropConstraintsCmd = new SqlCommand(dropConstraintsQuery, con);
+                            dropConstraintsCmd.ExecuteNonQuery();
+
+                            string updateInstituteQuery = "UPDATE INSTITUTE SET INSTITUTE_NAME = @NewInstituteName WHERE INSTITUTE_NAME = @OldInstituteName";
+                            SqlCommand updateInstituteCmd = new SqlCommand(updateInstituteQuery, con);
+                            updateInstituteCmd.Parameters.AddWithValue("@OldInstituteName", oldInstituteName);
+                            updateInstituteCmd.Parameters.AddWithValue("@NewInstituteName", newInstituteName);
+                            int instituteRowsAffected = updateInstituteCmd.ExecuteNonQuery();
+
+                            string updateThesisQuery = "UPDATE THESIS SET INSTITUTE_NAME = @NewInstituteName WHERE INSTITUTE_NAME = @OldInstituteName";
+                            SqlCommand updateThesisCmd = new SqlCommand(updateThesisQuery, con);
+                            updateThesisCmd.Parameters.AddWithValue("@OldInstituteName", oldInstituteName);
+                            updateThesisCmd.Parameters.AddWithValue("@NewInstituteName", newInstituteName);
+                            int thesisRowsAffected = updateThesisCmd.ExecuteNonQuery();
+
+                            string addConstraintsQuery = @"
+                        ALTER TABLE THESIS CHECK CONSTRAINT ALL;
+                        ALTER TABLE INSTITUTE CHECK CONSTRAINT ALL;";
+                            SqlCommand addConstraintsCmd = new SqlCommand(addConstraintsQuery, con);
+                            addConstraintsCmd.ExecuteNonQuery();
+
+                            if (instituteRowsAffected > 0 && thesisRowsAffected > 0)
+                            {
+                                MessageBox.Show("Institute name updated successfully.");
+                            }
+                            else if (instituteRowsAffected > 0)
+                            {
+                                MessageBox.Show("Institute name updated successfully.");
+                            }
+                            else
+                            {
+                                MessageBox.Show("An error occurred while updating the institute name.");
+                            }
+
+                            con.Close();
+                        }
                     }
-
-                    using (SqlConnection con = new SqlConnection(conString))
+                    else if (inputBox.UpdateType == "University")
                     {
-                        con.Open();
+                        string oldUniversityName = inputBox.OldUniversityName;
+                        string newUniversityName = inputBox.NewUniversityName;
 
-                        string checkInstituteQuery = "SELECT COUNT(*) FROM INSTITUTE WHERE INSTITUTE_NAME = @OldInstituteName";
-                        SqlCommand checkInstituteCmd = new SqlCommand(checkInstituteQuery, con);
-                        checkInstituteCmd.Parameters.AddWithValue("@OldInstituteName", oldInstituteName);
-                        int instituteCount = (int)checkInstituteCmd.ExecuteScalar();
-
-                        if (instituteCount == 0)
+                        if (string.IsNullOrEmpty(oldUniversityName) || string.IsNullOrEmpty(newUniversityName))
                         {
-                            MessageBox.Show("The specified old institute name does not exist.");
+                            MessageBox.Show("Both old and new university names must be provided.");
                             return;
                         }
 
-                        string checkNewInstituteQuery = "SELECT COUNT(*) FROM INSTITUTE WHERE INSTITUTE_NAME = @NewInstituteName";
-                        SqlCommand checkNewInstituteCmd = new SqlCommand(checkNewInstituteQuery, con);
-                        checkNewInstituteCmd.Parameters.AddWithValue("@NewInstituteName", newInstituteName);
-                        int newInstituteCount = (int)checkNewInstituteCmd.ExecuteScalar();
-
-                        if (newInstituteCount > 0)
+                        using (SqlConnection con = new SqlConnection(conString))
                         {
-                            MessageBox.Show("The specified new institute name already exists.");
-                            return;
+                            con.Open();
+
+                            string checkUniversityQuery = "SELECT COUNT(*) FROM UNIVERSITY WHERE UNIVERSITY_NAME = @OldUniversityName";
+                            SqlCommand checkUniversityCmd = new SqlCommand(checkUniversityQuery, con);
+                            checkUniversityCmd.Parameters.AddWithValue("@OldUniversityName", oldUniversityName);
+                            int universityCount = (int)checkUniversityCmd.ExecuteScalar();
+
+                            if (universityCount == 0)
+                            {
+                                MessageBox.Show("The specified old university name does not exist.");
+                                return;
+                            }
+
+                            string checkNewUniversityQuery = "SELECT COUNT(*) FROM UNIVERSITY WHERE UNIVERSITY_NAME = @NewUniversityName";
+                            SqlCommand checkNewUniversityCmd = new SqlCommand(checkNewUniversityQuery, con);
+                            checkNewUniversityCmd.Parameters.AddWithValue("@NewUniversityName", newUniversityName);
+                            int newUniversityCount = (int)checkNewUniversityCmd.ExecuteScalar();
+
+                            if (newUniversityCount > 0)
+                            {
+                                MessageBox.Show("The specified new university name already exists.");
+                                return;
+                            }
+
+                            string dropConstraintsQuery = @"
+                        ALTER TABLE THESIS NOCHECK CONSTRAINT ALL;
+                        ALTER TABLE INSTITUTE NOCHECK CONSTRAINT ALL;";
+                            SqlCommand dropConstraintsCmd = new SqlCommand(dropConstraintsQuery, con);
+                            dropConstraintsCmd.ExecuteNonQuery();
+
+                            string updateUniversityQuery = "UPDATE UNIVERSITY SET UNIVERSITY_NAME = @NewUniversityName WHERE UNIVERSITY_NAME = @OldUniversityName";
+                            SqlCommand updateUniversityCmd = new SqlCommand(updateUniversityQuery, con);
+                            updateUniversityCmd.Parameters.AddWithValue("@OldUniversityName", oldUniversityName);
+                            updateUniversityCmd.Parameters.AddWithValue("@NewUniversityName", newUniversityName);
+                            int universityRowsAffected = updateUniversityCmd.ExecuteNonQuery();
+
+                            string updateInstituteQuery = "UPDATE INSTITUTE SET UNIVERSITY_NAME = @NewUniversityName WHERE UNIVERSITY_NAME = @OldUniversityName";
+                            SqlCommand updateInstituteCmd = new SqlCommand(updateInstituteQuery, con);
+                            updateInstituteCmd.Parameters.AddWithValue("@OldUniversityName", oldUniversityName);
+                            updateInstituteCmd.Parameters.AddWithValue("@NewUniversityName", newUniversityName);
+                            int instituteRowsAffected = updateInstituteCmd.ExecuteNonQuery();
+
+                            string updateThesisQuery = "UPDATE THESIS SET UNIVERSITY_NAME = @NewUniversityName WHERE UNIVERSITY_NAME = @OldUniversityName";
+                            SqlCommand updateThesisCmd = new SqlCommand(updateThesisQuery, con);
+                            updateThesisCmd.Parameters.AddWithValue("@OldUniversityName", oldUniversityName);
+                            updateThesisCmd.Parameters.AddWithValue("@NewUniversityName", newUniversityName);
+                            int thesisRowsAffected = updateThesisCmd.ExecuteNonQuery();
+
+                            string addConstraintsQuery = @"
+                        ALTER TABLE THESIS CHECK CONSTRAINT ALL;
+                        ALTER TABLE INSTITUTE CHECK CONSTRAINT ALL;";
+                            SqlCommand addConstraintsCmd = new SqlCommand(addConstraintsQuery, con);
+                            addConstraintsCmd.ExecuteNonQuery();
+
+                            if (universityRowsAffected > 0 && instituteRowsAffected > 0 && thesisRowsAffected > 0)
+                            {
+                                MessageBox.Show("University name updated successfully.");
+                            }
+                            else if (universityRowsAffected > 0)
+                            {
+                                MessageBox.Show("University name updated successfully.");
+                            }
+                            else
+                            {
+                                MessageBox.Show("An error occurred while updating the university name.");
+                            }
+
+                            con.Close();
                         }
-
-                        string dropConstraintsQuery = @"
-                    ALTER TABLE THESIS NOCHECK CONSTRAINT ALL;
-                    ALTER TABLE INSTITUTE NOCHECK CONSTRAINT ALL;";
-                        SqlCommand dropConstraintsCmd = new SqlCommand(dropConstraintsQuery, con);
-                        dropConstraintsCmd.ExecuteNonQuery();
-
-                        string updateInstituteQuery = "UPDATE INSTITUTE SET INSTITUTE_NAME = @NewInstituteName WHERE INSTITUTE_NAME = @OldInstituteName";
-                        SqlCommand updateInstituteCmd = new SqlCommand(updateInstituteQuery, con);
-                        updateInstituteCmd.Parameters.AddWithValue("@OldInstituteName", oldInstituteName);
-                        updateInstituteCmd.Parameters.AddWithValue("@NewInstituteName", newInstituteName);
-                        int instituteRowsAffected = updateInstituteCmd.ExecuteNonQuery();
-
-                        string updateThesisQuery = "UPDATE THESIS SET INSTITUTE_NAME = @NewInstituteName WHERE INSTITUTE_NAME = @OldInstituteName";
-                        SqlCommand updateThesisCmd = new SqlCommand(updateThesisQuery, con);
-                        updateThesisCmd.Parameters.AddWithValue("@OldInstituteName", oldInstituteName);
-                        updateThesisCmd.Parameters.AddWithValue("@NewInstituteName", newInstituteName);
-                        int thesisRowsAffected = updateThesisCmd.ExecuteNonQuery();
-
-                        string addConstraintsQuery = @"
-                    ALTER TABLE THESIS CHECK CONSTRAINT ALL;
-                    ALTER TABLE INSTITUTE CHECK CONSTRAINT ALL;";
-                        SqlCommand addConstraintsCmd = new SqlCommand(addConstraintsQuery, con);
-                        addConstraintsCmd.ExecuteNonQuery();
-
-                        if (instituteRowsAffected > 0 && thesisRowsAffected > 0)
-                        {
-                            MessageBox.Show("Institute name updated successfully.");
-                        }
-                        else
-                        {
-                            MessageBox.Show("An error occurred while updating the institute name.");
-                        }
-
-                        con.Close();
                     }
                 }
             }
@@ -999,32 +1089,32 @@ namespace GTSAPP
                 con.Open();
 
                 string query = @"
-            SELECT 
-                T.THESIS_NO AS [THESIS NO], 
-                T.TITLE, 
-                T.ABSTRACT, 
-                T.AUTHOR_ID AS [AUTHOR ID], 
-                T.YEAR, 
-                T.TYPE, 
-                T.UNIVERSITY_NAME AS UNIVERSITY, 
-                T.INSTITUTE_NAME AS INSTITUTE, 
-                T.PAGES, 
-                STRING_AGG(K.KEYWORD, ', ') AS KEYWORDS,
-                STRING_AGG(TT.TOPIC_NAME, ', ') AS TOPICS,
-                S.SUPERVISOR_ID AS [SUPERVISOR ID],
-                S.COSUPERVISOR_ID AS [COSUPERVISOR ID],
-                T.LANGUAGE_NAME AS LANGUAGE, 
-                T.SUB_DATE AS [SUB DATE]
-            FROM 
-                THESIS T
-            LEFT JOIN 
-                SUPERVISOR S ON T.THESIS_NO = S.THESIS_NO
-            LEFT JOIN 
-                THESIS_KEYWORD K ON T.THESIS_NO = K.THESIS_NO
-            LEFT JOIN 
-                THESIS_TOPIC TT ON T.THESIS_NO = TT.THESIS_NO
-            WHERE 
-                1=1";
+        SELECT 
+            T.THESIS_NO AS [THESIS NO], 
+            T.TITLE, 
+            T.ABSTRACT, 
+            T.AUTHOR_ID AS [AUTHOR ID], 
+            T.YEAR, 
+            T.TYPE, 
+            T.UNIVERSITY_NAME AS UNIVERSITY, 
+            T.INSTITUTE_NAME AS INSTITUTE, 
+            T.PAGES, 
+            STRING_AGG(K.KEYWORD, ', ') AS KEYWORDS,
+            STRING_AGG(TT.TOPIC_NAME, ', ') AS TOPICS,
+            S.SUPERVISOR_ID AS [SUPERVISOR ID],
+            S.COSUPERVISOR_ID AS [COSUPERVISOR ID],
+            T.LANGUAGE_NAME AS LANGUAGE, 
+            T.SUB_DATE AS [SUB DATE]
+        FROM 
+            THESIS T
+        LEFT JOIN 
+            SUPERVISOR S ON T.THESIS_NO = S.THESIS_NO
+        LEFT JOIN 
+            THESIS_KEYWORD K ON T.THESIS_NO = K.THESIS_NO
+        LEFT JOIN 
+            THESIS_TOPIC TT ON T.THESIS_NO = TT.THESIS_NO
+        WHERE 
+            1=1";
 
                 if (!string.IsNullOrEmpty(thesisNoS.Text))
                 {
@@ -1041,6 +1131,41 @@ namespace GTSAPP
                     query += " AND T.AUTHOR_ID = @AuthorId";
                 }
 
+                if (!string.IsNullOrEmpty(yearS.Text))
+                {
+                    if (!int.TryParse(yearS.Text, out int yearValue))
+                    {
+                        MessageBox.Show("Year must be numeric.");
+                        return;
+                    }
+                    query += " AND T.YEAR = @Year";
+                }
+
+                if (!string.IsNullOrEmpty(keywordS.Text))
+                {
+                    query += " AND K.KEYWORD LIKE @Keyword";
+                }
+
+                if (!string.IsNullOrEmpty(titleS.Text))
+                {
+                    query += " AND T.TITLE LIKE @Title";
+                }
+
+                if (!string.IsNullOrEmpty(univS.Text))
+                {
+                    query += " AND T.UNIVERSITY_NAME LIKE @University";
+                }
+
+                if (!string.IsNullOrEmpty(instS.Text))
+                {
+                    query += " AND T.INSTITUTE_NAME LIKE @Institute";
+                }
+
+                if (typeS.SelectedItem != null && !string.IsNullOrEmpty(typeS.SelectedItem.ToString()))
+                {
+                    query += " AND T.TYPE = @Type";
+                }
+
                 query += " GROUP BY T.THESIS_NO, T.TITLE, T.ABSTRACT, T.AUTHOR_ID, T.YEAR, T.TYPE, T.UNIVERSITY_NAME, T.INSTITUTE_NAME, T.PAGES, T.LANGUAGE_NAME, T.SUB_DATE, S.SUPERVISOR_ID, S.COSUPERVISOR_ID";
 
                 SqlDataAdapter da = new SqlDataAdapter(query, con);
@@ -1055,12 +1180,42 @@ namespace GTSAPP
                     da.SelectCommand.Parameters.AddWithValue("@AuthorId", AuthorIdS.Text);
                 }
 
+                if (!string.IsNullOrEmpty(yearS.Text))
+                {
+                    da.SelectCommand.Parameters.AddWithValue("@Year", yearS.Text);
+                }
+
+                if (!string.IsNullOrEmpty(keywordS.Text))
+                {
+                    da.SelectCommand.Parameters.AddWithValue("@Keyword", "%" + keywordS.Text + "%");
+                }
+
+                if (!string.IsNullOrEmpty(titleS.Text))
+                {
+                    da.SelectCommand.Parameters.AddWithValue("@Title", "%" + titleS.Text + "%");
+                }
+
+                if (!string.IsNullOrEmpty(univS.Text))
+                {
+                    da.SelectCommand.Parameters.AddWithValue("@University", "%" + univS.Text + "%");
+                }
+
+                if (!string.IsNullOrEmpty(instS.Text))
+                {
+                    da.SelectCommand.Parameters.AddWithValue("@Institute", "%" + instS.Text + "%");
+                }
+
+                if (typeS.SelectedItem != null && !string.IsNullOrEmpty(typeS.SelectedItem.ToString()))
+                {
+                    da.SelectCommand.Parameters.AddWithValue("@Type", typeS.SelectedItem.ToString());
+                }
+
                 DataTable dt = new DataTable();
                 da.Fill(dt);
                 dataGridView3.DataSource = dt;
 
                 con.Close();
             }
-        }
+        }       
     }
 }

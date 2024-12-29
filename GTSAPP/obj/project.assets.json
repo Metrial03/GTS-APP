@@ -1693,11 +1693,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\heray\\Desktop\\erayy\\GTSAPP\\GTSAPP\\GTSAPP.csproj",
+      "projectUniqueName": "C:\\Users\\heray\\source\\repos\\GTSAPP\\GTSAPP\\GTSAPP.csproj",
       "projectName": "GTSAPP",
-      "projectPath": "C:\\Users\\heray\\Desktop\\erayy\\GTSAPP\\GTSAPP\\GTSAPP.csproj",
+      "projectPath": "C:\\Users\\heray\\source\\repos\\GTSAPP\\GTSAPP\\GTSAPP.csproj",
       "packagesPath": "C:\\Users\\heray\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\heray\\Desktop\\erayy\\GTSAPP\\GTSAPP\\obj\\",
+      "outputPath": "C:\\Users\\heray\\source\\repos\\GTSAPP\\GTSAPP\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
